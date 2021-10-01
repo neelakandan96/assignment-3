@@ -1,0 +1,141 @@
+#1. In JWT Security Project, Cross check if signup is working fine, if not make necessary code changes.
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Resource(name = "userService")
+    private UserDetailsService userDetailsService;
+    //UserServiceImpl
+
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+    
+
+    //Spring Boot JPA - HIbernate
+    
+    //yesterday database
+    //below one
+    @Autowired
+    public void globalUserDetails99(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService) //thru HIbernate
+                .passwordEncoder(encoder());
+    }
+
+    @Bean
+    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
+        return new JwtAuthenticationFilter();
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable().
+                authorizeRequests()
+                .antMatchers("/token/*", "/signup").permitAll()
+                //.antMatchers("/user").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http
+                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+}
+
+#2. In JWT Security Project, add implementation to provide update password functionality
+
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Resource(name = "userService")
+    private UserDetailsService userDetailsService;
+    //UserServiceImpl
+
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+    
+
+    //Spring Boot JPA - HIbernate
+    
+    //yesterday database
+    //below one
+    @Autowired
+    public void globalUserDetails99(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService) //thru HIbernate
+                .passwordEncoder(encoder());
+    }
+
+    @Bean
+    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
+        return new JwtAuthenticationFilter();
+    }
+    {
+     @Override
+      public User updatePassword(UserDto userDto) {
+       User user = userDao.findById(userDto.getId()).get();
+       user.setPassword(userDto.getPassword());
+       return user;
+    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable().
+                authorizeRequests()
+                .antMatchers("/token/*", "/signup","/password").permitAll()
+                //.antMatchers("/user").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http
+                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+}
+
+3. Html
+
+<html>
+  <head>
+    <title>add two numbers</title>
+    <script>
+      function display () {
+        var v1 = document.getElementById("val1").value;
+        var v1 = document.getElementById("val2").value;
+        var result = parseInt(v1)+parseInt(v2);
+        alert("sum is"+result);
+      
+      }
+      </script>
+  </head>
+  <body>
+    enter the value 1:<input type = "text" name = "val1" id = "val2" value = ""><br>
+    enter the value 2:<input type = "text" name = "val1" id = "val2" value = ""><br>
+   <input type="button" value="Add/" onclick="display();"/>
+  </body>
+    </html> 
+

@@ -1,0 +1,40 @@
+1.add delete employee functionality,and restrict that employee
+deletion can be done by admin role.make tis necessary changes to 
+employe spring boot application provided.
+#2. Create a New Microservice named Discount Microservice(with one Http POST end point), to the given Microservice Project. See that Discount Microservice is registered with Eureka by checking Eureka dashboard, also invoke Discount Microservice through Zuul gateway.
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:9090/eureka/#register url to server    
+
+instance:
+  hostname: localhost
+  
+server:
+  port: 8989
+  port: 8960
+  
+zuul:
+  prefix: /mentorportal
+  routes:
+#    userAccessService:
+#      path: /userservice/**
+#      service-id: USERACCESSSERVICE
+#    trainingsService:
+#      path: /trainingsService/**
+#      service-id: TRAININGSSERVICE
+    skillTechnologiesService:
+      path: /skillTechService/**
+      service-id: SKILLTECHNOLOGIESSERVICE
+#    mentorSkillCalendarService:
+#      path: /skillMentService/**
+#      service-id: MENTORSKILLCALENDARSERVICE
+#    paymentsService:
+#      path: /paymentService/**
+#      service-id: PAYMENTSSERVICE
+  NewService:
+      path: /newService/**
+      service-id: MyTechnologiesService    
+     

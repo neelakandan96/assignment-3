@@ -1,0 +1,45 @@
+1)In angular display radio button and enablr/disable dynamically
+based on some condition?
+
+@component({
+selector:'app-root',
+template:<ul>
+        <li>
+          <div id="text">Selected:shirts</div>
+         </li>
+        <li>
+           <radiobutton#radio1 label="shirts"name="default"="true(change)='changeOption1></radiobutton>
+         </li>
+          <li>
+           <radiobutton#radio1 label="pants"name="default"="true(change)='changeOption1></radiobutton>
+           </li>
+           <li>
+           <radiobutton#radio1 label="jean"name="default"="true(change)='changeOption1></radiobutton>
+           </li>
+           <li>
+           <radiobutton#radio1 label="cotton"name="default"="true(change)='changeOption1></radiobutton>
+           </li>
+          </ul>
+})
+
+ export class Appcomponent {
+   @view('radio1')
+   public radio1:RadioButtonComponent;
+   @view('radio2')
+   public radio2:RadioButtonComponent;
+   @view('radio3')
+   public radio3:RadioButtonComponent;
+    @view('radio4')
+   public radio4:RadioButtonComponent;
+  public Changeshirts(args:ChangeEventArgs){
+      document.getElementById("text").innerText='Selected:'+this.radio1.label;
+     }
+   public Changepants(args:ChangeEventArgs){
+      document.getElementById("text").innerText='Selected:'+this.radio2.label;
+     }
+    public Changejean(args:ChangeEventArgs){
+      document.getElementById("text").innerText='Selected:'+this.radio3.label;
+     }
+     public Changecotton(args:ChangeEventArgs){
+      document.getElementById("text").innerText='Selected:'+this.radio4.label;
+     }

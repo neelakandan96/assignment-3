@@ -1,0 +1,31 @@
+1)Devlop an application which uses spring security control the access
+of method in service layer using method level security?
+
+
+@Component
+class AbcComponent{
+
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
+    public String hasAdmUsrRole() {
+        return "Hello World!!!";
+    }
+    
+    @PreAuthorize("permitAll()")
+    public String anonymous() {
+        return "Hi everyone";
+    }
+}
+
+@RestController
+@RequestMapping("labour")
+public class LabourController {
+     @Autowired
+     AbcComponent abc;
+
+     @GetMapping("anonymous")
+     public String anonymous() {
+      return abc();
+      }
+
+}
+

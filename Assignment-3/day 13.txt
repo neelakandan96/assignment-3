@@ -1,0 +1,82 @@
+1)Create HTML page, in which you can enter an integer value, once integer value is enetered, display multiplication table of this integer, display each multiple one by one with delay of 1 second.stop display
+    <head>
+        <script>
+            var i = 1;
+            function addmultiple(mul){
+                document.getElementById("result").innerHTML += "<br>"+mul+"x"+i+"="+(mul*i);
+                i++;
+
+            }
+            function displaymul(){
+            var mul = parseInt(document.getElementById("num").value);
+           setInterval(addmultiple,1000,mul);
+    
+       
+
+        }
+        </script>
+    </head>
+    <body>
+        Enter value: <input type="text" id="num" value="" onchange="displaymul();"/>
+  <div id="result"></div>
+    </body>
+
+</html>
+
+2)use external css file and javascript
+<html>
+<head>
+    <title>
+      The web page
+     </title>
+    <script>
+      var head = document.getElementById('HEAD');
+      var link = document.createElement('link');
+      link.rel = 'styelsheet';
+      link.type = 'text/css';
+      link.href = 'style.css';
+     head.appendchild(link);
+   </script>
+  </head>
+  </body>
+   <h2 class="ITG">Iam ThE Greatest</h2>
+  </body>
+  </html>
+
+3)use multiple style with style class
+
+<html>
+  <head>
+   <title>The web page</title>
+   <style>
+     .main {
+            text-align:center;
+          }
+      .ITG {
+           color:#009900;
+           font-size:100px;
+           font-weight:bold;
+          }
+      .Greatest {
+            font-style:bold;
+            font-size:50px;
+           }
+       </style>
+     </head>
+   <body>
+        <div class = "main">
+           <div class = "ITG">IamTheGreatest</div>
+     
+        <div class ="Greatest">
+          A muhammad ali dialogue
+         </div>
+       </div>
+</body>
+   </html>
+
+
+#4. Use JSON.parse() or JSON.stringify() to convert below json string and display employee details in HTML table, using Javascript.
+[{"name": "abcd", "empid": 1234, "emailid": "fdsfsd@dfsfs.com"},
+{"name": "abcd1", "empid": 12345, "emailid": "fdsfsd111@dfsfs.com"},
+{"name": "abcd2", "empid": 12346, "emailid": "fdsfsd@dfsfs222.com"}
+]
